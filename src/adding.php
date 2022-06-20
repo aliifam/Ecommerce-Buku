@@ -3,11 +3,11 @@
 include 'conn.php';
 
   // membuat variabel untuk menampung data dari form
-  $book_name        = $_POST['book_name'];
-  $book_description = $_POST['book_description'];
-  $book_author      = $_POST['book_author'];
-  $book_price       = $_POST['book_price'];
-  $book_picture     = $_FILES['book_picture']['name'];
+  $book_name        = mysqli_real_escape_string($conn, $_POST['book_name']);
+  $book_description = mysqli_real_escape_string($conn, $_POST['book_description']);
+  $book_author      = mysqli_real_escape_string($conn, $_POST['book_author']);
+  $book_price       = mysqli_real_escape_string($conn, $_POST['book_price']);
+  $book_picture     = mysqli_real_escape_string($conn, $_FILES['book_picture']['name']);
 
 
 //cek dulu jika ada gambar produk jalankan coding ini
