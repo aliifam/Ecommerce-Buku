@@ -10,6 +10,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      .search-article {
+          position: relative;
+          margin-top: 2.5rem;
+          margin-bottom: 2.5rem;
+      }
+      .search-article label[for="search-input"] {
+          position: relative;
+          top: -6px;
+          left: 11px;
+      }
+      .search-article input[type="search"] {
+          top: -1rem;
+          left: 0;
+          border: 0;
+          width: 100%;
+          height: 40px;
+          outline: none;
+          position: absolute;
+          border-radius: 5px;
+          padding: 10px 10px 10px 35px;
+          color: var(--base-color);
+          -webkit-appearance: none;
+          background-color: rgba(128, 128, 128, 0.1);
+          border: 1px solid rgba(128, 128, 128, 0.1);
+      }
+      .search-article input[type="search"]::-webkit-input-placeholder {
+          color: #808080;
+      }
+      .search-article input[type="search"]::-webkit-search-decoration, .search-article input[type="search"]::-webkit-search-results-decoration {
+          display: none;
+      }
+    </style>
   </head>
   <body>
 
@@ -27,6 +61,7 @@
               </div>
           </div>
       </div>
+      <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <?php
         // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
@@ -47,7 +82,9 @@
         ?>
 
         <!-- Column -->
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+        <div class="buku my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+            <p style="display:none;"><?php echo $row['book_name'], " ", $row['book_author']; ?></p>
 
             <!-- Article -->
             <article class="overflow-hidden rounded-lg shadow-lg">
@@ -85,5 +122,6 @@
 
       </div>
     </div>
+    <script src="search.js"></script>
   </body>
 </html>
