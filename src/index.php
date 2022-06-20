@@ -122,6 +122,9 @@
 
       </div>
     </div>
+    <footer class="p-12 text-center font-bold text-lg">
+    Copyright © 2022 by Aliif Arief
+    </footer>
     <script src="search.js"></script>
   </body>
 </html>
