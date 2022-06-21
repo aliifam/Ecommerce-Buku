@@ -1,6 +1,6 @@
 <?php
-  include('conn.php'); //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
-  
+  include 'conn.php'; //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
+  include 'auth.php'; //user access privileges
 ?>
 <!DOCTYPE html>
 <html>

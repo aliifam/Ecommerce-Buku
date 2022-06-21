@@ -1,6 +1,6 @@
 <?php
   include('conn.php'); //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
-  
+  session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,18 +47,34 @@
   </head>
   <body>
 
-
   <div class="container my-12 mx-auto px-4 md:px-12">
     <div class="bg-gradient-to-tr from-sky-400 via-purple-600 to-purple-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
           <h2 class="text-3xl leading-9 font-bold tracking-tight text-white sm:text-4xl sm:leading-10">
               Katalog Toko Buku TRPL
           </h2>
+          <?php
+              if(isset($_SESSION["username"])) {
+                  echo "<h1 class='text-lg font-bold text-white mt-4'>Halo, " . $_SESSION['username'] . "!<h1>";
+              }
+          ?>
           <div class="mt-8 flex justify-center">
               <div class="inline-flex rounded-md bg-white shadow">
                   <a href="add_book.php" class="text-gray-700 font-bold py-2 px-6">
                       Add Book +
                   </a>
               </div>
+              <?php
+              if(isset($_SESSION["username"])) { //heredoc style
+                  $logmes = <<<logmes
+                  <div class="inline-flex ml-4 rounded-md bg-red-600 shadow">
+                    <a href="logout.php" class="text-white font-bold py-2 px-6" onclick="return confirm('Anda yakin Logout?')">
+                        Logout
+                    </a>
+                  </div>
+                  logmes;
+                  echo "$logmes";
+                  }
+               ?>
           </div>
       </div>
       <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
@@ -74,7 +90,6 @@
         }
 
         //buat perulangan untuk element tabel dari data mahasiswa
-        $no = 1; //variabel untuk membuat nomor urut
         // hasil query akan disimpan dalam variabel $data dalam bentuk array
         // kemudian dicetak dengan perulangan while
         while($row = mysqli_fetch_assoc($result))
@@ -116,14 +131,13 @@
         </div>
         <!-- END Column -->
         <?php
-        $no++; //untuk nomor urut terus bertambah 1
       }
       ?>
 
       </div>
     </div>
-    <footer class="p-12 text-center font-bold text-lg">
-    Copyright © 2022 by Aliif Arief
+    <footer class="p-12 text-center font-bold text-base">
+        Copyright © 2022 by Aliif Arief for PPW1
     </footer>
     <script src="search.js"></script>
   </body>

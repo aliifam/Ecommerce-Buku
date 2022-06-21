@@ -1,6 +1,12 @@
 <?php
 // memanggil file koneksi.php untuk melakukan koneksi database
 include 'conn.php';
+include 'auth.php'; //user access privileges
+
+
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die($_SERVER['REQUEST_METHOD'] . ' method access not permitted');
+  } 
 
 	// membuat variabel untuk menampung data dari form
   $id               = $_POST['id'];

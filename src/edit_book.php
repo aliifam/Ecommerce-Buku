@@ -1,6 +1,7 @@
 <?php
   // memanggil file koneksi.php untuk membuat koneksi
 include 'conn.php';
+include 'auth.php'; //user access privileges
 
   // mengecek apakah di url ada nilai GET id
   if (isset($_GET['id'])) {

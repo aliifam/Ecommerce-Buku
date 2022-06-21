@@ -1,5 +1,6 @@
 <?php
 include 'conn.php';
+include 'auth.php'; //user access privileges
 $id = $_GET["id"];
 //mengambil id yang ingin dihapus
 
