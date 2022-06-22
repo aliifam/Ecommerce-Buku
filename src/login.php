@@ -29,7 +29,7 @@
         if ($rows == 1) {
             $_SESSION['username'] = $username;
             // Redirect to index page
-            echo "<script>alert('Berhasil Login');window.location='index.php';</script>";
+            echo "<script>alert('Berhasil Login selamat datang " . $_SESSION['username'] . "!');window.location='index.php';</script>";
         } else {
             echo "<script>alert('Password / Username salah coba diinga lagi soalnya website ini belum mendukung reset password kalau lupa.');window.location='login.php';</script>";
         }

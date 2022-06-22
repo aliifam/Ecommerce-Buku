@@ -14,6 +14,18 @@ include 'auth.php'; //user access privileges
   $book_price       = mysqli_real_escape_string($conn, $_POST['book_price']);
   $book_picture     = mysqli_real_escape_string($conn, $_FILES['book_picture']['name']);
 
+   // Get User Id based on username
+  $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
+  $res = mysqli_query($conn, $sql);
+  $count = mysqli_num_rows($res);
+  if ($count > 0) {
+      $row = mysqli_fetch_assoc($res);
+      $user_id = $row["id"];
+  } else {
+      $user_id = 0;
+  }
+  $sql = null;
+
 
 //cek dulu jika ada gambar produk jalankan coding ini
 if($book_picture != "") {
@@ -26,7 +38,7 @@ if($book_picture != "") {
         if(in_array($extension, $file_extension) === true)  {     
                 move_uploaded_file($file_tmp, 'img/'.$new_image_name); //memindah file gambar ke folder gambar
                   // jalankan query INSERT untuk menambah data ke database pastikan sesuai urutan (id tidak perlu karena dibikin otomatis)
-                  $query = "INSERT INTO books (book_name, book_description, book_author, book_price, book_picture) VALUES ('$book_name', '$book_description', '$book_author', '$book_price', '$new_image_name')";
+                  $query = "INSERT INTO books (book_name, book_description, book_author, book_price, book_picture, user_id) VALUES ('$book_name', '$book_description', '$book_author', '$book_price', '$new_image_name', '$user_id')";
                   $result = mysqli_query($conn, $query);
                   // periska query apakah ada error
                   if(!$result){

@@ -8,8 +8,20 @@ include 'auth.php'; //user access privileges
     // ambil nilai id dari url dan disimpan dalam variabel $id
     $id = ($_GET["id"]);
 
+    // Get User Id based on username
+    $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
+    $res = mysqli_query($conn, $sql);
+    $count = mysqli_num_rows($res);
+    if ($count > 0) {
+        $row = mysqli_fetch_assoc($res);
+        $user_id = $row["id"];
+    } else {
+        $user_id = 0;
+    }
+    $sql = null;
+
     // menampilkan data dari database yang mempunyai id=$id
-    $query = "SELECT * FROM books WHERE id='$id'";
+    $query = "SELECT * FROM books WHERE id='$id' AND user_id = '$user_id'";
     $result = mysqli_query($conn, $query);
     // jika data gagal diambil maka akan tampil error berikut
     if(!$result){
@@ -19,7 +31,7 @@ include 'auth.php'; //user access privileges
     // mengambil data dari database
     $data = mysqli_fetch_assoc($result);
       // apabila data tidak ada pada database maka akan dijalankan perintah ini
-       if (!count($data)) {
+       if (!$data) {
           echo "<script>alert('Buku tidak ditemukan pada database');window.location='index.php';</script>";
        }
   } else {

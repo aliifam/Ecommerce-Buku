@@ -1,6 +1,10 @@
 <?php
-  include('conn.php'); //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
-  session_start();
+  include 'conn.php'; //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
+  include 'auth.php';
+  if(!isset($_SESSION)) 
+  { 
+      session_start(); 
+  } 
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,8 +84,19 @@
       <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <?php
+        // Get User Id based on username
+        $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
+        $res = mysqli_query($conn, $sql);
+        $count = mysqli_num_rows($res);
+        if ($count > 0) {
+            $row = mysqli_fetch_assoc($res);
+            $user_id = $row["id"];
+        } else {
+            $user_id = 0;
+        }
+        $sql = null;
         // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
-        $query = "SELECT * FROM books ORDER BY id ASC";
+        $query = "SELECT * FROM books WHERE user_id='{$user_id}' ORDER BY id DESC";
         $result = mysqli_query($conn, $query);
         //mengecek apakah ada error ketika menjalankan query
         if(!$result){
