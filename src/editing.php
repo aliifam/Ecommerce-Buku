@@ -50,7 +50,7 @@ include 'auth.php'; //user access privileges
                     } else {
                       //tampil alert dan akan redirect ke halaman index.php
                       //silahkan ganti index.php sesuai halaman yang akan dituju
-                      echo "<script>alert('Data berhasil diubah.');window.location='index.php';</script>";
+                      echo "<script>alert('Data berhasil diubah.');window.location='dashboard.php';</script>";
                     }
               } else {     
                //jika file ekstensi tidak jpg dan png maka alert ini yang tampil
@@ -68,6 +68,6 @@ include 'auth.php'; //user access privileges
       } else {
         //tampil alert dan akan redirect ke halaman index.php
         //silahkan ganti index.php sesuai halaman yang akan dituju
-          echo "<script>alert('Data berhasil diubah.');window.location='index.php';</script>";
+          echo "<script>alert('Data berhasil diubah.');window.location='dashboard.php';</script>";
       }
     }

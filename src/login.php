@@ -13,7 +13,7 @@
     include 'conn.php';
     session_start();
     if(isset($_SESSION["username"])) {
-        echo "<script>alert('anda sudah login " . $_SESSION['username'] . "!');window.location='index.php';</script>";
+        echo "<script>alert('anda sudah login " . $_SESSION['username'] . "!');window.location='dashboard.php';</script>";
     }
     // When form submitted, check and create user session.
     if (isset($_POST['username'])) {
@@ -29,9 +29,9 @@
         if ($rows == 1) {
             $_SESSION['username'] = $username;
             // Redirect to index page
-            echo "<script>alert('Berhasil Login selamat datang " . $_SESSION['username'] . "!');window.location='index.php';</script>";
+            echo "<script>alert('Berhasil Login selamat datang " . $_SESSION['username'] . "!');window.location='dashboard.php';</script>";
         } else {
-            echo "<script>alert('Password / Username salah coba diinga lagi soalnya website ini belum mendukung reset password kalau lupa.');window.location='login.php';</script>";
+            echo "<script>alert('Password / Username salah coba diingat lagi soalnya website ini belum mendukung reset password kalau lupa, kalau tidak ingat hubungi me@aliif.space.');window.location='login.php';</script>";
         }
     } else {
 ?>

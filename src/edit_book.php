@@ -32,11 +32,11 @@ include 'auth.php'; //user access privileges
     $data = mysqli_fetch_assoc($result);
       // apabila data tidak ada pada database maka akan dijalankan perintah ini
        if (!$data) {
-          echo "<script>alert('Buku tidak ditemukan pada database');window.location='index.php';</script>";
+          echo "<script>alert('Buku tidak ditemukan pada database');window.location='dashboard.php';</script>";
        }
   } else {
     // apabila tidak ada data GET id pada akan di redirect ke index.php
-    echo "<script>alert('Masukkan data id.');window.location='index.php';</script>";
+    echo "<script>alert('Masukkan data id.');window.location='dashboard.php';</script>";
   }         
   ?>
 <!DOCTYPE html>

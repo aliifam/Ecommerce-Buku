@@ -47,7 +47,7 @@ if($book_picture != "") {
                   } else {
                     //tampil alert dan akan redirect ke halaman index.php
                     //silahkan ganti index.php sesuai halaman yang akan dituju
-                    echo "<script>alert('Buku berhasil ditambah.');window.location='index.php';</script>";
+                    echo "<script>alert('Buku berhasil ditambah.');window.location='dashboard.php';</script>";
                   }
 
             } else {     
@@ -64,6 +64,6 @@ if($book_picture != "") {
                   } else {
                     //tampil alert dan akan redirect ke halaman index.php
                     //silahkan ganti index.php sesuai halaman yang akan dituju
-                    echo "<script>alert('buku berhasil ditambahkan');window.location='index.php';</script>";
+                    echo "<script>alert('buku berhasil ditambahkan');window.location='dashboard.php';</script>";
                   }
 }
