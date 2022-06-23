@@ -28,7 +28,7 @@ $sql = null;
     //periksa query, apakah ada kesalahan
     
     if(!$data) {
-      echo "<script>alert('Access Denied');window.location='index.php';</script>";
+      echo "<script>alert('Access Denied!');window.location='index.php';</script>";
     } else {
       echo "<script>alert('Buku berhasil dihapus.');window.location='index.php';</script>";
     }

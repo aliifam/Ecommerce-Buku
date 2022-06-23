@@ -1,15 +1,13 @@
 <?php
   include 'conn.php'; //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
-  include 'auth.php';
-  if(!isset($_SESSION)) 
-  { 
-      session_start(); 
-  } 
+  
+  session_start(); 
+
 ?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Katalog Toko Buku <?php echo($_SESSION['username']); ?></title>
+    <title>Katalog Toko Buku</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +52,7 @@
   <div class="container my-12 mx-auto px-4 md:px-12">
     <div class="bg-gradient-to-tr from-sky-400 via-purple-600 to-purple-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
           <h2 class="text-3xl leading-9 font-bold tracking-tight text-white sm:text-4xl sm:leading-10">
-              Dashboard Toko Buku <?php echo($_SESSION['username']); ?>
+              Katalog Toko Buku
           </h2>
           <?php
               if(isset($_SESSION["username"])) {
@@ -64,7 +62,13 @@
           <div class="mt-8 flex justify-center">
               <div class="inline-flex rounded-md bg-white shadow">
                   <a href="add_book.php" class="text-gray-700 font-bold py-2 px-6">
-                      Add Book +
+                  <?php
+                        if(isset($_SESSION["username"])) {
+                            echo "Add Book +";
+                        } else {
+                            echo "Mau Jual Buku?";
+                        }
+                    ?>
                   </a>
               </div>
               <?php
@@ -84,19 +88,8 @@
       <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <?php
-        // Get User Id based on username
-        $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
-        $res = mysqli_query($conn, $sql);
-        $count = mysqli_num_rows($res);
-        if ($count > 0) {
-            $row = mysqli_fetch_assoc($res);
-            $user_id = $row["id"];
-        } else {
-            $user_id = 0;
-        }
-        $sql = null;
         // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
-        $query = "SELECT * FROM books WHERE user_id='{$user_id}' ORDER BY id DESC";
+        $query = "SELECT * FROM books ORDER BY id DESC";
         $result = mysqli_query($conn, $query);
         //mengecek apakah ada error ketika menjalankan query
         if(!$result){
@@ -132,12 +125,49 @@
                 
 
                 <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a href="edit_book.php?id=<?php echo $row['id']; ?>" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                  <?php
+                    $wadau = mysqli_query($conn, "SELECT U.email, B.book_name, B.book_price, B.book_author FROM users AS U, books AS B WHERE U.id = B.user_id and B.id = {$row["id"]}");
+                    $count2 = mysqli_num_rows($wadau);
+                    if ($count2 > 0) {
+                      $baris2 = mysqli_fetch_assoc($wadau);
+                      $user_email = $baris2["email"];
+                      $harga_buku = $baris2["book_price"];
+                      $judul_buku = $baris2["book_name"];
+                    }
+                    if(isset($_SESSION["username"])) {
+                      // Get User Id based on username
+                      $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
+                      $res = mysqli_query($conn, $sql);
+                      $count = mysqli_num_rows($res);
+                      if ($count > 0) {
+                          $baris = mysqli_fetch_assoc($res);
+                          $user_id = $baris["id"];
+                      } else {
+                          $user_id = 0;
+                      }
+                      $sql = null;
+                      if ($row['user_id'] == $user_id) {
+                        echo "<a href='edit_book.php?id={$row['id']}' class='inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'>
                         Edit
-                    </a>
-                    <a href="delete_book.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin akan menghapus buku ini?')" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
-                        Delete
-                    </a>
+                        </a>";
+                        $delmes = <<<delmes
+                        onclick="return confirm('Anda yakin akan menghapus buku ini?')"
+                        delmes;
+                        echo "<a href='delete_book.php?id={$row['id']}' $delmes class='inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out'>
+                            Delete
+                        </a>";
+                      } else {
+                        echo "<a href='mailto:{$user_email}?subject=Pembelian Buku \"{$judul_buku}\"&body=Saya mau beli buku dengan judul \"{$judul_buku}\" \n yang harganya Rp. {$harga_buku}' class='w-full text-center px-6 py-2.5 bg-violet-600 text-white font-medium leading-tight rounded shadow-md'>
+                            Beli
+                        </a>";
+                      }
+                    } else {
+                      echo "<a href='mailto:{$user_email}?subject=Pembelian Buku \"{$judul_buku}\"&body=Saya mau beli buku dengan judul \"{$judul_buku}\" \n yang harganya Rp. {$harga_buku}' class='w-full text-center px-6 py-2.5 bg-violet-600 text-white font-medium leading-tight rounded shadow-md'>
+                      Beli
+                  </a>";
+                    }
+                   
+                  ?>
                 </footer>
 
             </article>

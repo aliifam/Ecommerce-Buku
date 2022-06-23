@@ -26,6 +26,12 @@
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($conn, $password);
         $create_datetime = date("Y-m-d H:i:s");
+
+        $select = mysqli_query($conn, "SELECT * FROM users WHERE username = '".$username."'");
+        if(mysqli_num_rows($select)) {
+            echo "<script>alert('username \"${username}\" sudah ada yang punya mohon registrasi ulang dengan username yang unik!');window.location='register.php';</script>";
+        }
+
         $query    = "INSERT into `users` (username, password, email, create_datetime)
                      VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
         $result   = mysqli_query($conn, $query);
