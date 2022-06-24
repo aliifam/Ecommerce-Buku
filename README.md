@@ -28,6 +28,6 @@ Roles :
 - Store Admin = user yang teregistrasi dan menjual buku
 - Visitor = people who just visit for shopping and not selling the book.
 
-## Screenshots
+## Video Presentasi
 
-menyusul
+[YouTube Link]()

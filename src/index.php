@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Katalog Toko Buku</title>
+    <title>Ecommerce Buku TRPL</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,7 @@
   <div class="container my-12 mx-auto px-4 md:px-12">
     <div class="bg-gradient-to-tr from-sky-400 via-purple-600 to-purple-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
           <h2 class="text-3xl leading-9 font-bold tracking-tight text-white sm:text-4xl sm:leading-10">
-              Katalog Toko Buku
+              Ecommerce Buku TRPL
           </h2>
           <?php
               if(isset($_SESSION["username"])) {
