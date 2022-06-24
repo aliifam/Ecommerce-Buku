@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2022 at 04:30 PM
+-- Generation Time: Jun 24, 2022 at 09:42 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -33,17 +33,19 @@ CREATE TABLE `books` (
   `book_description` text DEFAULT NULL,
   `book_author` varchar(255) DEFAULT NULL,
   `book_price` int(11) DEFAULT NULL,
-  `book_picture` varchar(255) DEFAULT NULL
+  `book_picture` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `book_name`, `book_description`, `book_author`, `book_price`, `book_picture`) VALUES
-(8, 'Buku Pertama post Mavbar', 'ini buku yang pertama \'setelah styling dengan tailwind CSS yang telah edited fixed anjay udah aman dari admin 2', 'aliif admin2', 121000, '196-buku1.jpg'),
-(9, 'Kehujanan', 'Tentang persahabatan\r\nTentang cinta\r\nTentang perpisahan\r\nTentang melupakan\r\nTentang hujan', 'Barabara', 78100, '407-hujan-tere.jpg'),
-(10, 'The Pragmatic Programmer', 'ini buku ajib bener ente semua programmer wajib baca ini jangan ngoding mulu ente', 'David Thomas', 399000, '485-pragmatic-programmer.jpg');
+INSERT INTO `books` (`id`, `book_name`, `book_description`, `book_author`, `book_price`, `book_picture`, `user_id`) VALUES
+(17, 'Pemrograman PHP', 'buku belajar pemrograman dengan menggunakan bahasa PHP 8 dari pemula hingga mahir serta real word project', 'Eko Khannedy', 85900, '643-phphp.png', 8),
+(18, 'Pemrograman C++', 'Buku Belajar programan dengan Bahasa C++ dari pemula hingga advance berfokus di studi kasus competitive programming', 'Pikatan Arya B.', 112000, '643-cppp.jpg', 8),
+(19, 'Rembulan Tenggelam', 'buku novel rembulan tenggelam diwajahmu berikisah tentang seorang anak perempuan dari negeri sabah yang nan jauh namun memiliki impian', 'Tere Liye', 79999, '217-rembulan.jpg', 9),
+(20, 'Pulang Pergi', 'buku \"Pulang Pergi\" merupakan buku terakhir dari trilogi pulang dan pergi buku ini akan mengisahkan peperangan terakhir antara sibabi hutan.', 'Tere Liye', 88000, '769-pulangpergi.jpg', 9);
 
 -- --------------------------------------------------------
 
@@ -64,8 +66,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `create_datetime`) VALUES
-(1, 'admin', 'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', '2022-06-21 09:37:06'),
-(2, 'admin2', 'admin2@mail.com', 'c84258e9c39059a89ab77d846ddab909', '2022-06-21 16:24:30');
+(8, 'admin', 'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', '2022-06-24 09:26:00'),
+(9, 'admin2', 'admin2@mail.com', 'c84258e9c39059a89ab77d846ddab909', '2022-06-24 09:35:31');
 
 --
 -- Indexes for dumped tables
@@ -91,13 +93,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
