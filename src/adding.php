@@ -27,7 +27,7 @@ include 'auth.php'; //user access privileges
   $sql = null;
 
 
-//cek dulu jika ada gambar produk jalankan coding ini
+//cek dulu jika ada gambar buku jalankan coding ini
 if($book_picture != "") {
   $file_extension = array('png','jpg'); //ekstensi file gambar yang bisa diupload 
   $x = explode('.', $book_picture); //memisahkan nama file dengan ekstensi yang diupload
@@ -47,7 +47,7 @@ if($book_picture != "") {
                   } else {
                     //tampil alert dan akan redirect ke halaman index.php
                     //silahkan ganti index.php sesuai halaman yang akan dituju
-                    echo "<script>alert('Buku berhasil ditambah.');window.location='dashboard.php';</script>";
+                    echo "<script>alert('Buku \"{$book_name}\" berhasil ditambah.');window.location='dashboard.php';</script>";
                   }
 
             } else {     
@@ -55,15 +55,14 @@ if($book_picture != "") {
                 echo "<script>alert('Ekstensi gambar yang boleh hanya jpg atau png.');window.location='add_book.php';</script>";
             }
 } else {
-   $query = "INSERT INTO books (book_name, book_description, book_author, book_price, book_picture) VALUES ('$book_name', '$book_description', '$book_author', '$book_price', null)";
+   $query = "INSERT INTO books (book_name, book_description, book_author, book_price, book_picture, user_id) VALUES ('$book_name', '$book_description', '$book_author', '$book_price', null, '$user_id')";
                   $result = mysqli_query($conn, $query);
                   // periska query apakah ada error
                   if(!$result){
                       die ("Query gagal dijalankan: ".mysqli_errno($conn).
                            " - ".mysqli_error($conn));
                   } else {
-                    //tampil alert dan akan redirect ke halaman index.php
-                    //silahkan ganti index.php sesuai halaman yang akan dituju
-                    echo "<script>alert('buku berhasil ditambahkan');window.location='dashboard.php';</script>";
+                    //tampil alert dan akan redirect ke halaman dashboard.php
+                    echo "<script>alert('buku \"{$book_name}\" berhasil ditambahkan');window.location='dashboard.php';</script>";
                   }
 }

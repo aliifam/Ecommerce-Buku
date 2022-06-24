@@ -1,6 +1,6 @@
 <?php
   include 'conn.php'; //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
-  include 'auth.php';
+  include 'auth.php'; //auth wall hanya yang ssudah login yang bisa masuk
   if(!isset($_SESSION)) 
   { 
       session_start(); 
@@ -52,7 +52,7 @@
   <body>
 
   <div class="container my-12 mx-auto px-4 md:px-12">
-    <div class="bg-gradient-to-tr from-sky-400 via-purple-600 to-purple-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
+    <div class="bg-gradient-to-br from-sky-400 via-purple-600 to-purple-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
           <h2 class="text-3xl leading-9 font-bold tracking-tight text-white sm:text-4xl sm:leading-10">
               Dashboard Toko Buku <?php echo($_SESSION['username']); ?>
           </h2>
@@ -91,7 +91,7 @@
       <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <?php
-        // Get User Id based on username
+        // Get User Id based on username session
         $sql = "SELECT id FROM users WHERE username='{$_SESSION["username"]}'";
         $res = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($res);
@@ -102,7 +102,7 @@
             $user_id = 0;
         }
         $sql = null;
-        // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+        // jalankan query untuk menampilkan semua data diurutkan dari yang terbaru ditambahkan ssesuai dengan user id nya
         $query = "SELECT * FROM books WHERE user_id='{$user_id}' ORDER BY id DESC";
         $result = mysqli_query($conn, $query);
         //mengecek apakah ada error ketika menjalankan query
@@ -111,9 +111,7 @@
             " - ".mysqli_error($conn));
         }
 
-        //buat perulangan untuk element tabel dari data mahasiswa
-        // hasil query akan disimpan dalam variabel $data dalam bentuk array
-        // kemudian dicetak dengan perulangan while
+        //hasil query result lalu di loop per row nya agar datanya bisa ditampilkan diakses dengan kuci nama column
         while($row = mysqli_fetch_assoc($result))
         {
         ?>
@@ -127,7 +125,7 @@
             <article class="overflow-hidden rounded-lg shadow-lg">
 
                 
-                <img src="img/<?php echo $row['book_picture']; ?>" alt="<?php echo $row['book_name']; ?>" class="block h-auto w-full">
+                <img src="img/<?php echo $row['book_picture']; ?>" alt="<?php echo $row['book_name']; ?>" class="object-contain h-60 w-96">
                 
                 <div class="p-2 md:p-4">
                   <p class="text-xl text-blue-700 font-semibold">Rp <?php echo number_format($row['book_price'],0,',','.'); ?></p>
@@ -142,7 +140,7 @@
                     <a href="edit_book.php?id=<?php echo $row['id']; ?>" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                         Edit
                     </a>
-                    <a href="delete_book.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin akan menghapus buku ini?')" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+                    <a href="delete_book.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin akan menghapus buku <?php echo $row['book_name']; ?>?')" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
                         Delete
                     </a>
                 </footer>

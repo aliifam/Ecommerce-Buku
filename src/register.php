@@ -36,7 +36,7 @@
                      VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
         $result   = mysqli_query($conn, $query);
         if ($result) {
-            echo "<script>alert('Berhasil Registrasi ekarang Login dulu ya');window.location='login.php';</script>";
+            echo "<script>alert('Berhasil Registrasi sekarang Login dulu ya');window.location='login.php';</script>";
         } else {
             echo "<script>alert('yah registrasinya gagal');window.location='register.php';</script>";
         }

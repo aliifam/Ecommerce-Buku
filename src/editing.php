@@ -5,7 +5,7 @@ include 'auth.php'; //user access privileges
 
 
   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die($_SERVER['REQUEST_METHOD'] . ' method access not permitted');
+    die($_SERVER['REQUEST_METHOD'] . ' method access not permitted'); //http method validation
   } 
 
 	// membuat variabel untuk menampung data dari form

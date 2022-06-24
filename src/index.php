@@ -88,7 +88,7 @@
       <div class="search-article"><label for="search-input" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></label><input type="search" id="search-input" placeholder="Find by Book Title or author name" aria-label="Search"></div>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <?php
-        // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+        // jalankan query untuk menampilkan semua data diurutkan berdasarkan buku yang terbaru ditambahkan
         $query = "SELECT * FROM books ORDER BY id DESC";
         $result = mysqli_query($conn, $query);
         //mengecek apakah ada error ketika menjalankan query
@@ -97,9 +97,7 @@
             " - ".mysqli_error($conn));
         }
 
-        //buat perulangan untuk element tabel dari data mahasiswa
-        // hasil query akan disimpan dalam variabel $data dalam bentuk array
-        // kemudian dicetak dengan perulangan while
+        ////hasil query result lalu di loop per row nya agar datanya bisa ditampilkan diakses dengan kuci nama column
         while($row = mysqli_fetch_assoc($result))
         {
         ?>
@@ -113,7 +111,7 @@
             <article class="overflow-hidden rounded-lg shadow-lg">
 
                 
-                <img src="img/<?php echo $row['book_picture']; ?>" alt="<?php echo $row['book_name']; ?>" class="block h-auto w-full">
+                <img src="img/<?php echo $row['book_picture']; ?>" alt="<?php echo $row['book_name']; ?>" class="object-contain h-60 w-96">
                 
                 <div class="p-2 md:p-4">
                   <p class="text-xl text-blue-700 font-semibold">Rp <?php echo number_format($row['book_price'],0,',','.'); ?></p>
@@ -151,7 +149,7 @@
                         Edit
                         </a>";
                         $delmes = <<<delmes
-                        onclick="return confirm('Anda yakin akan menghapus buku ini?')"
+                        onclick="return confirm('Anda yakin akan menghapus buku {$row['book_name']}?')"
                         delmes;
                         echo "<a href='delete_book.php?id={$row['id']}' $delmes class='inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out'>
                             Delete

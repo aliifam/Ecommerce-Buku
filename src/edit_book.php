@@ -35,7 +35,7 @@ include 'auth.php'; //user access privileges
           echo "<script>alert('Buku tidak ditemukan pada database');window.location='dashboard.php';</script>";
        }
   } else {
-    // apabila tidak ada data GET id pada akan di redirect ke index.php
+    // apabila tidak ada data GET id pada akan di redirect ke dasshboard.php
     echo "<script>alert('Masukkan data id.');window.location='dashboard.php';</script>";
   }         
   ?>
