@@ -30,6 +30,13 @@
         $select = mysqli_query($conn, "SELECT * FROM users WHERE username = '".$username."'");
         if(mysqli_num_rows($select)) {
             echo "<script>alert('username \"${username}\" sudah ada yang punya mohon registrasi ulang dengan username yang unik!');window.location='register.php';</script>";
+            die('username must unique');
+        }
+
+        $cekemail = mysqli_query($conn, "SELECT * FROM users WHERE email = '".$email."'");
+        if(mysqli_num_rows($cekemail)) {
+            echo "<script>alert('email \"${email}\" sudah terdaftar silahkan login');window.location='login.php';</script>";
+            die('email already existing in db');
         }
 
         $query    = "INSERT into `users` (username, password, email, create_datetime)
