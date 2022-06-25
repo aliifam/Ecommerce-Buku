@@ -26,7 +26,7 @@ Roles :
 
 - Master Admin = the programmer and database holder
 - Store Admin = user yang teregistrasi dan menjual buku
-- Visitor = people who just visit for shopping and not selling the book.
+- Visitor = people who just visit for shopping and not selling a book.
 
 ## Video Presentasi
 
