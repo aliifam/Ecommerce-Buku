@@ -30,4 +30,4 @@ Roles :
 
 ## Video Presentasi
 
-[YouTube Link]()
+[YouTube Link](https://youtu.be/5d-WsCndZmY)
